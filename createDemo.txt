@@ -1,0 +1,428 @@
+CREATE TABLE people (
+  2    person_id   INTEGER NOT NULL PRIMARY KEY,
+  3    given_name  VARCHAR2(100) NOT NULL,
+  4    family_name VARCHAR2(100) NOT NULL,
+  5    title       VARCHAR2(20),
+  6    birth_date  DATE
+  7  );
+
+Table created.
+
+SQL> INSERT INTO people
+  2  VALUES (1, 'Dave', 'Badger', 'Mr', date'1960-05-01')
+  3  ;
+
+1 row created.
+
+SQL> INSERT INTO people (person_id, given_name, family_name, title)
+  2    WITH names AS (
+  3      SELECT 4, 'Ruth',     'Fox',      'Mrs'    FROM dual UNION ALL
+  4      SELECT 5, 'Isabelle', 'Squirrel', 'Miss'   FROM dual UNION ALL
+  5      SELECT 6, 'Justin',   'Frog',     'Master' FROM dual UNION ALL
+  6      SELECT 7, 'Lisa',     'Owl',      'Dr'     FROM dual
+  7    )
+  8    );
+  )
+  *
+ERROR at line 8:
+ORA-00928: missing SELECT keyword
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO people (person_id, given_name, family_name, title)
+  2    WITH names AS (
+  3      SELECT 4, 'Ruth',     'Fox',      'Mrs'    FROM dual UNION ALL
+  4      SELECT 5, 'Isabelle', 'Squirrel', 'Miss'   FROM dual UNION ALL
+  5      SELECT 6, 'Justin',   'Frog',     'Master' FROM dual UNION ALL
+  6      SELECT 7, 'Lisa',     'Owl',      'Dr'     FROM dual
+  7    )
+  8*  /
+SQL> /
+ /
+ *
+ERROR at line 8:
+ORA-00928: missing SELECT keyword
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO people (person_id, given_name, family_name, title)
+  2    WITH names AS (
+  3      SELECT 4, 'Ruth',     'Fox',      'Mrs'    FROM dual UNION ALL
+  4      SELECT 5, 'Isabelle', 'Squirrel', 'Miss'   FROM dual UNION ALL
+  5      SELECT 6, 'Justin',   'Frog',     'Master' FROM dual UNION ALL
+  6      SELECT 7, 'Lisa',     'Owl',      'Dr'     FROM dual
+  7    )
+  8*  /
+  9  /
+ /
+ *
+ERROR at line 8:
+ORA-00928: missing SELECT keyword
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO people (person_id, given_name, family_name, title)
+  2    WITH names AS (
+  3      SELECT 4, 'Ruth',     'Fox',      'Mrs'    FROM dual UNION ALL
+  4      SELECT 5, 'Isabelle', 'Squirrel', 'Miss'   FROM dual UNION ALL
+  5      SELECT 6, 'Justin',   'Frog',     'Master' FROM dual UNION ALL
+  6      SELECT 7, 'Lisa',     'Owl',      'Dr'     FROM dual
+  7*   )
+  8  /
+  )
+  *
+ERROR at line 7:
+ORA-00928: missing SELECT keyword
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO people (person_id, given_name, family_name, title)
+  2    WITH names AS (
+  3      SELECT 4, 'Ruth',     'Fox',      'Mrs'    FROM dual UNION ALL
+  4      SELECT 5, 'Isabelle', 'Squirrel', 'Miss'   FROM dual UNION ALL
+  5      SELECT 6, 'Justin',   'Frog',     'Master' FROM dual UNION ALL
+  6      SELECT 7, 'Lisa',     'Owl',      'Dr'     FROM dual
+  7    )
+  8* select * from names
+SQL> /
+
+4 rows created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO people (person_id, given_name, family_name, title)
+  2    WITH names AS (
+  3      SELECT 4, 'Ruth',     'Fox',      'Mrs'    FROM dual UNION ALL
+  4      SELECT 5, 'Isabelle', 'Squirrel', 'Miss'   FROM dual UNION ALL
+  5      SELECT 6, 'Justin',   'Frog',     'Master' FROM dual UNION ALL
+  6      SELECT 7, 'Lisa',     'Owl',      'Dr'     FROM dual
+  7    )
+  8* select * from names
+SQL> create table secondpeople
+  2  as
+  3  select * from people where 1=2;
+
+Table created.
+
+SQL> select * from secondpeople;
+
+no rows selected
+
+SQL> desc secondpeople
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PERSON_ID                                 NOT NULL NUMBER(38)
+ GIVEN_NAME                                NOT NULL VARCHAR2(100)
+ FAMILY_NAME                               NOT NULL VARCHAR2(100)
+ TITLE                                              VARCHAR2(20)
+ BIRTH_DATE                                         DATE
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table thirdpeople
+  2  as
+  3* select * from people
+SQL> /
+
+Table created.
+
+SQL> select * from thirdpeople;
+
+ PERSON_ID
+----------
+GIVEN_NAME
+--------------------------------------------------------------------------------
+FAMILY_NAME
+--------------------------------------------------------------------------------
+TITLE                BIRTH_DAT
+-------------------- ---------
+         1
+Dave
+Badger
+Mr                   01-MAY-60
+
+
+ PERSON_ID
+----------
+GIVEN_NAME
+--------------------------------------------------------------------------------
+FAMILY_NAME
+--------------------------------------------------------------------------------
+TITLE                BIRTH_DAT
+-------------------- ---------
+         4
+Ruth
+Fox
+Mrs
+
+
+ PERSON_ID
+----------
+GIVEN_NAME
+--------------------------------------------------------------------------------
+FAMILY_NAME
+--------------------------------------------------------------------------------
+TITLE                BIRTH_DAT
+-------------------- ---------
+         5
+Isabelle
+Squirrel
+Miss
+
+
+ PERSON_ID
+----------
+GIVEN_NAME
+--------------------------------------------------------------------------------
+FAMILY_NAME
+--------------------------------------------------------------------------------
+TITLE                BIRTH_DAT
+-------------------- ---------
+         6
+Justin
+Frog
+Master
+
+
+ PERSON_ID
+----------
+GIVEN_NAME
+--------------------------------------------------------------------------------
+FAMILY_NAME
+--------------------------------------------------------------------------------
+TITLE                BIRTH_DAT
+-------------------- ---------
+         7
+Lisa
+Owl
+Dr
+
+
+SQL> set lines 1000
+SQL> set pages 40;
+SQL> /
+
+ PERSON_ID GIVEN_NAME                                                                                           FAMILY_NAME                                                                                          TITLE                BIRTH_DAT
+---------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- -------------------- ---------
+         1 Dave                                                                                                 Badger
+                                                                                                     Mr
+          01-MAY-60
+         4 Ruth                                                                                                 Fox
+                                                                                                     Mrs
+         5 Isabelle                                                                                             Squirrel                                                                                             Miss
+         6 Justin                                                                                               Frog
+                                                                                                     Master
+         7 Lisa                                                                                                 Owl
+                                                                                                     Dr
+
+SQL> insert into secondpeople
+  2  select * from people;
+
+5 rows created.
+
+SQL> delete from secondpeople;
+
+5 rows deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from people;
+
+ PERSON_ID GIVEN_NAME                                                                                           FAMILY_NAME                                                                                          TITLE                BIRTH_DAT
+---------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- -------------------- ---------
+         1 Dave                                                                                                 Badger
+                                                                                                     Mr
+          01-MAY-60
+         4 Ruth                                                                                                 Fox
+                                                                                                     Mrs
+         5 Isabelle                                                                                             Squirrel                                                                                             Miss
+         6 Justin                                                                                               Frog
+                                                                                                     Master
+         7 Lisa                                                                                                 Owl
+                                                                                                     Dr
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select * from secondpeople
+SQL> /
+
+no rows selected
+
+SQL> desc secondpeople
+ Name
+
+
+
+
+                                   Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ PERSON_ID
+
+
+
+
+                                   NOT NULL NUMBER(38)
+ GIVEN_NAME
+
+
+
+
+                                   NOT NULL VARCHAR2(100)
+ FAMILY_NAME
+
+
+
+
+                                   NOT NULL VARCHAR2(100)
+ TITLE
+
+
+
+
+                                            VARCHAR2(20)
+ BIRTH_DATE
+
+
+
+
+                                            DATE
+
+SQL> insert into secondpeople(personid,given_name)
+  2  select personid,given_name from people;
+select personid,given_name from people
+       *
+ERROR at line 2:
+ORA-00904: "PERSONID": invalid identifier
+
+
+SQL>
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into secondpeople(person_id,given_name)
+  2* select person_id,given_name from people
+SQL> /
+insert into secondpeople(person_id,given_name)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."SECONDPEOPLE"."FAMILY_NAME")
+
+
+SQL> desc secondpeople;
+ Name
+
+
+
+
+                                   Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ PERSON_ID
+
+
+
+
+                                   NOT NULL NUMBER(38)
+ GIVEN_NAME
+
+
+
+
+                                   NOT NULL VARCHAR2(100)
+ FAMILY_NAME
+
+
+
+
+                                   NOT NULL VARCHAR2(100)
+ TITLE
+
+
+
+
+                                            VARCHAR2(20)
+ BIRTH_DATE
+
+
+
+
+                                            DATE
+
+SQL> drop table secondpeople;
+
+Table dropped.
+
+SQL> create table secondpeople (person_id number(38),
+  2  first_name varchar2(100),
+  3  family_name varchar2(100));
+
+Table created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into secondpeople(person_id, first_name)
+  2* select person_id,given_name from people
+SQL> /
+
+5 rows created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table peopleDuplicate
+  2  (person_id number(38),
+  3  fname varchar2(100)
+  4* )
+SQL> /
+
+Table created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT ALL
+  2    INTO peopleduplicate  (person_id,fname) VALUES (person_id,given_name)
+  3* SELECT person_id,given_name FROM people
+  4  /
+
+5 rows created.
+
+SQL> select * from peopleduplicate;
+
+ PERSON_ID FNAME
+---------- ----------------------------------------------------------------------------------------------------
+         1 Dave
+         4 Ruth
+         5 Isabelle
+         6 Justin
+         7 Lisa
+
+SQL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
