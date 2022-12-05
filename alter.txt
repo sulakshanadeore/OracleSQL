@@ -1,0 +1,126 @@
+SQL> create table books
+  2  (bookid number(4),
+  3  bookname varchar(20),
+  4  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table books
+  2  (bookid number(4),
+  3  bookname varchar2(20),
+  4  price number(15,2)
+  5* )
+SQL> /
+
+Table created.
+
+SQL> insert into books values(1,'C Prog',200);
+
+1 row created.
+
+SQL> alter table books
+  2  modify bookid number(4) primary key;
+
+Table altered.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table books
+  2* add authorname varchar2(40) not null
+SQL> /
+alter table books
+            *
+ERROR at line 1:
+ORA-01758: table must be empty to add mandatory (NOT NULL) column
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table books
+  2* add authorname varchar2(40)
+SQL> /
+
+Table altered.
+
+SQL> update books
+  2  set authorname='Jack'
+  3  where bookid=1;
+
+1 row updated.
+
+SQL> alter table books
+  2  modify authorname varchar2(40) not null;
+
+Table altered.
+
+SQL> create table publications
+  2  (pubid number(5) primary key,
+  3  pubname varchar2(30),
+  4  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table publications
+  2  (pubid number(5) primary key,
+  3* pubname varchar2(30))
+SQL> /
+
+Table created.
+
+SQL> alter table books
+  2  add publication-id number(5) foreign key references publications(pubid);
+add publication-id number(5) foreign key references publications(pubid)
+               *
+ERROR at line 2:
+ORA-00902: invalid datatype
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table books
+  2* add publication-id number(5)  references publications(pubid)
+SQL> /
+add publication-id number(5)  references publications(pubid)
+               *
+ERROR at line 2:
+ORA-00902: invalid datatype
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table books
+  2  add publication_id number(5) constraint fk foreign key
+  3*  references publications(pubid)
+SQL> /
+add publication_id number(5) constraint fk foreign key
+                             *
+ERROR at line 2:
+ORA-02253: constraint specification not allowed here
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table books
+  2  add publication_id number(5)  foreign key
+  3*  references publications(pubid)
+SQL> /
+add publication_id number(5)  foreign key
+                              *
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table books
+  2  add publication_id number(5)
+  3* add constraint fk foreign key (publication_id) references publications(pubid)
+SQL> /
+
+Table altered.
