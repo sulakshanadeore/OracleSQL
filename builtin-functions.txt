@@ -1,0 +1,1219 @@
+SQL> select len('hello') from dual;
+select len('hello') from dual
+       *
+ERROR at line 1:
+ORA-00904: "LEN": invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select length('hello') from dual
+SQL> /
+
+LENGTH('HELLO')
+---------------
+              5
+
+SQL> select ename,length(ename) from emp;
+
+ENAME      LENGTH(ENAME)
+---------- -------------
+SMITH                  5
+ALLEN                  5
+WARD                   4
+JONES                  5
+MARTIN                 6
+BLAKE                  5
+CLARK                  5
+SCOTT                  5
+KING                   4
+TURNER                 6
+ADAMS                  5
+
+ENAME      LENGTH(ENAME)
+---------- -------------
+JAMES                  5
+FORD                   4
+MILLER                 6
+deepa                  5
+
+15 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,upper(ename),lower(ename),initcap(ename) from emp
+SQL> /
+
+ENAME      UPPER(ENAM LOWER(ENAM INITCAP(EN
+---------- ---------- ---------- ----------
+SMITH      SMITH      smith      Smith
+ALLEN      ALLEN      allen      Allen
+WARD       WARD       ward       Ward
+JONES      JONES      jones      Jones
+MARTIN     MARTIN     martin     Martin
+BLAKE      BLAKE      blake      Blake
+CLARK      CLARK      clark      Clark
+SCOTT      SCOTT      scott      Scott
+KING       KING       king       King
+TURNER     TURNER     turner     Turner
+ADAMS      ADAMS      adams      Adams
+
+ENAME      UPPER(ENAM LOWER(ENAM INITCAP(EN
+---------- ---------- ---------- ----------
+JAMES      JAMES      james      James
+FORD       FORD       ford       Ford
+MILLER     MILLER     miller     Miller
+deepa      DEEPA      deepa      Deepa
+
+15 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,substr(ename,1,4) from emp
+SQL> /
+
+ENAME      SUBSTR(ENAME,1,4
+---------- ----------------
+SMITH      SMIT
+ALLEN      ALLE
+WARD       WARD
+JONES      JONE
+MARTIN     MART
+BLAKE      BLAK
+CLARK      CLAR
+SCOTT      SCOT
+KING       KING
+TURNER     TURN
+ADAMS      ADAM
+
+ENAME      SUBSTR(ENAME,1,4
+---------- ----------------
+JAMES      JAME
+FORD       FORD
+MILLER     MILL
+deepa      deep
+
+15 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,substr(ename,1,4) namePart from emp
+SQL> /
+
+ENAME      NAMEPART
+---------- ----------------
+SMITH      SMIT
+ALLEN      ALLE
+WARD       WARD
+JONES      JONE
+MARTIN     MART
+BLAKE      BLAK
+CLARK      CLAR
+SCOTT      SCOT
+KING       KING
+TURNER     TURN
+ADAMS      ADAM
+
+ENAME      NAMEPART
+---------- ----------------
+JAMES      JAME
+FORD       FORD
+MILLER     MILL
+deepa      deep
+
+15 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,initcap(substr(ename,1,4)) namePart from emp
+SQL> /
+
+ENAME      NAMEPART
+---------- ----------------
+SMITH      Smit
+ALLEN      Alle
+WARD       Ward
+JONES      Jone
+MARTIN     Mart
+BLAKE      Blak
+CLARK      Clar
+SCOTT      Scot
+KING       King
+TURNER     Turn
+ADAMS      Adam
+
+ENAME      NAMEPART
+---------- ----------------
+JAMES      Jame
+FORD       Ford
+MILLER     Mill
+deepa      Deep
+
+15 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,soundex('SMIT') namePart from emp
+SQL> /
+
+ENAME      NAME
+---------- ----
+SMITH      S530
+ALLEN      S530
+WARD       S530
+JONES      S530
+MARTIN     S530
+BLAKE      S530
+CLARK      S530
+SCOTT      S530
+KING       S530
+TURNER     S530
+ADAMS      S530
+
+ENAME      NAME
+---------- ----
+JAMES      S530
+FORD       S530
+MILLER     S530
+deepa      S530
+
+15 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,soundex('SMIT','SMITH'') namePart from emp
+SQL> /
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename,soundex('SMIT','SMITH') namePart from emp
+SQL> /
+select ename,soundex('SMIT','SMITH') namePart from emp
+             *
+ERROR at line 1:
+ORA-00909: invalid number of arguments
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where soundex(ename)=soundex('SMIT')
+SQL> /
+
+ENAME
+----------
+SMITH
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where soundex(ename)=soundex('ALEN')
+SQL> /
+
+ENAME
+----------
+ALLEN
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where soundex(ename)=soundex('WORD')
+SQL> /
+
+ENAME
+----------
+WARD
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where soundex(ename)=soundex('scot')
+SQL> /
+
+ENAME
+----------
+SCOTT
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* Insert into emp(empid,ename) values (888,'parvaathy')
+SQL> /
+Insert into emp(empid,ename) values (888,'parvaathy')
+                *
+ERROR at line 1:
+ORA-00904: "EMPID": invalid identifier
+
+
+SQL> desc emp
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* Insert into emp(empno,ename) values (888,'parvaathy')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2*    where soundex(ename)=soundex('parvathi')
+SQL> /
+
+ENAME
+----------
+parvaathy
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 'P%'
+SQL> /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 'p%'
+SQL> /
+
+ENAME
+----------
+parvaathy
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 's%h'
+SQL> /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 'S%H'
+SQL> /
+
+ENAME
+----------
+SMITH
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 'S____'
+SQL> /
+
+ENAME
+----------
+SMITH
+SCOTT
+
+SQL> insert into emp (empno,ename) values (66,'SUPARNA');
+
+1 row created.
+
+SQL> select ename from emp
+  2    2* where ename like 'S____'
+  3  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2*   where ename like 'S____'
+SQL> /
+
+ENAME
+----------
+SMITH
+SCOTT
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2*   where ename like 'S%'
+SQL> /
+
+ENAME
+----------
+SMITH
+SCOTT
+SUPARNA
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2*   where ename like 'S______'
+SQL> /
+
+ENAME
+----------
+SUPARNA
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 'S_____A'
+SQL> /
+
+ENAME
+----------
+SUPARNA
+
+SQL> eded
+SP2-0042: unknown command "eded" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename from emp
+  2* where ename like 'S%M%'
+SQL> /
+
+ENAME
+----------
+SMITH
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into emp (empno,ename) values(77,'CHARLESIII')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from emp
+  2* where ename like '%III%'
+SQL> /
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM
+---------- ---------- --------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+        77 CHARLESIII
+
+
+
+SQL> desc products;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODID                                    NOT NULL NUMBER(2)
+ PRODNAME                                           VARCHAR2(20)
+ PRICE                                              NUMBER(5,2)
+ CATEGORYID                                         NUMBER(2)
+
+SQL> create table electronicProducts
+  2  (prodid varchar2(20),
+  3  prodname varchar2(20));
+
+Table created.
+
+SQL> create synonym ep for electronicProducts;
+
+Synonym created.
+
+SQL> insert into ep values('SP_01','phones');
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into ep values('SP_02','mobile phones')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into ep values('SP_03','chargers')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into ep values('SP_04','adapters')
+SQL> /
+
+1 row created.
+
+SQL> select * from ep;
+
+PRODID               PRODNAME
+-------------------- --------------------
+SP_01                phones
+SP_02                mobile phones
+SP_03                chargers
+SP_04                adapters
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where prodid like 'SP_%' escape '_'
+  3  /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where prodid like 'SP_%'
+SQL> /
+
+PRODID               PRODNAME
+-------------------- --------------------
+SP_01                phones
+SP_02                mobile phones
+SP_03                chargers
+SP_04                adapters
+
+SQL> insert
+  2  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into ep values('$10_666','laptops')
+SQL> /
+
+1 row created.
+
+SQL> select * from ep
+  2    2* where prodid like 'SP_%'
+  3  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2*   where prodid like '$%_%' escape '$'
+SQL> /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2*   where prodid like '%$_%' escape '$'
+SQL> /
+
+PRODID               PRODNAME
+-------------------- --------------------
+SP_01                phones
+SP_02                mobile phones
+SP_03                chargers
+SP_04                adapters
+$10_666              laptops
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2*   where prodid like '%$_666' escape '$'
+SQL> /
+
+PRODID               PRODNAME
+-------------------- --------------------
+$10_666              laptops
+
+SQL> alter table ep
+  2  add column discount varchar2(20);
+add column discount varchar2(20)
+    *
+ERROR at line 2:
+ORA-00904: : invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table ep
+  2* add discount varchar2(20)
+SQL> /
+alter table ep
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table electronicproducts
+  2* add discount varchar2(20)
+SQL> /
+
+Table altered.
+
+SQL> update ep
+  2  set discount='10%';
+
+5 rows updated.
+
+SQL> select * from ep;
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               10%
+SP_02                mobile phones        10%
+SP_03                chargers             10%
+SP_04                adapters             10%
+$10_666              laptops              10%
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where discount like '__%' escape '%'
+SQL> /
+where discount like '__%' escape '%'
+                    *
+ERROR at line 2:
+ORA-01424: missing or illegal character following the escape character
+
+
+SQL> e
+SP2-0042: unknown command "e" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where discount like '__%%' escape '%'
+SQL> /
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               10%
+SP_02                mobile phones        10%
+SP_03                chargers             10%
+SP_04                adapters             10%
+$10_666              laptops              10%
+
+SQL> update ep
+  2  set discount=100%
+  3  where prodid='SP_01';
+set discount=100%
+                *
+ERROR at line 2:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  update ep
+  2  set discount='100%'
+  3* where prodid='SP_01'
+SQL> /
+
+1 row updated.
+
+SQL> select * from ep;
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               100%
+SP_02                mobile phones        10%
+SP_03                chargers             10%
+SP_04                adapters             10%
+$10_666              laptops              10%
+
+SQL>
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2*    where discount like '___%%' escape '%'
+SQL> /
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               100%
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2*  where discount like '%%' escape '%'
+SQL> /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2*  where discount like '__%%' escape '%'
+SQL> /
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_02                mobile phones        10%
+SP_03                chargers             10%
+SP_04                adapters             10%
+$10_666              laptops              10%
+
+SQL> update ep
+  2  set discount='20%'
+  3  where prodid='SP_04';
+
+1 row updated.
+
+SQL> select * from ep;
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               100%
+SP_02                mobile phones        10%
+SP_03                chargers             10%
+SP_04                adapters             20%
+$10_666              laptops              10%
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  update ep
+  2      set discount='30%'
+  3*     where prodid='SP_02';
+SQL> ;
+  1  update ep
+  2      set discount='30%'
+  3*     where prodid='SP_02';
+SQL> /
+    where prodid='SP_02';
+                        *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  update ep
+  2      set discount='30%'
+  3*     where prodid='SP_02'
+SQL> /
+
+1 row updated.
+
+SQL> select * from ep;
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               100%
+SP_02                mobile phones        30%
+SP_03                chargers             10%
+SP_04                adapters             20%
+$10_666              laptops              10%
+
+SQL> select * from ep
+  2  where dicount between '10%' and '30%';
+where dicount between '10%' and '30%'
+      *
+ERROR at line 2:
+ORA-00904: "DICOUNT": invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where discount between '10%' and '30%'
+SQL> /
+
+PRODID               PRODNAME             DISCOUNT
+-------------------- -------------------- --------------------
+SP_01                phones               100%
+SP_02                mobile phones        30%
+SP_03                chargers             10%
+SP_04                adapters             20%
+$10_666              laptops              10%
+
+SQL> alter table electronicproducts
+  2  modify discount number(5);
+modify discount number(5)
+       *
+ERROR at line 2:
+ORA-01439: column to be modified must be empty to change datatype
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  alter table electronicproducts
+  2* add dis number(5)
+SQL> /
+
+Table altered.
+
+SQL> update ep
+  2  set dis=100%
+  3  where prodid='SP_01';
+set dis=100%
+           *
+ERROR at line 2:
+ORA-00911: invalid character
+
+
+SQL> desc ep;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODID                                             VARCHAR2(20)
+ PRODNAME                                           VARCHAR2(20)
+ DISCOUNT                                           VARCHAR2(20)
+ DIS                                                NUMBER(5)
+
+SQL>
+SQL> select * from ep
+  2  group by d
+  3  .
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select prodid,discount from ep
+  2* group by prodid
+  3  /
+select prodid,discount from ep
+              *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select prodid,discount from ep
+  2* where discount in('10%','30%')
+  3  /
+
+PRODID               DISCOUNT
+-------------------- --------------------
+SP_02                30%
+SP_03                10%
+$10_666              10%
+
+SQL> select * from ep;
+
+PRODID               PRODNAME             DISCOUNT                    DIS
+-------------------- -------------------- -------------------- ----------
+SP_01                phones               100%
+SP_02                mobile phones        30%
+SP_03                chargers             10%
+SP_04                adapters             20%
+$10_666              laptops              10%
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where discount in('10%,'20%','30%')
+SQL> /
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from ep
+  2* where discount in('10%','20%','30%')
+SQL> /
+
+PRODID               PRODNAME             DISCOUNT                    DIS
+-------------------- -------------------- -------------------- ----------
+SP_02                mobile phones        30%
+SP_03                chargers             10%
+SP_04                adapters             20%
+$10_666              laptops              10%
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select substr(discount,1,2) from ep
+  2  /
+
+SUBSTR(D
+--------
+10
+30
+10
+20
+10
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select abs(substr(discount,1,2)) from ep
+SQL> /
+
+ABS(SUBSTR(DISCOUNT,1,2))
+-------------------------
+                       10
+                       30
+                       10
+                       20
+                       10
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select abs(substr(discount,1,2)) from ep
+  2* where abs(substr(discount,1,2)) between 10 and 30
+SQL> /
+
+ABS(SUBSTR(DISCOUNT,1,2))
+-------------------------
+                       10
+                       30
+                       10
+                       20
+                       10
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select concat(abs(substr(discount,1,2)),'%') from ep
+  2* where abs(substr(discount,1,2)) between 10 and 30
+SQL> /
+
+CONCAT(ABS(SUBSTR(DISCOUNT,1,2)),'%')
+-----------------------------------------
+10%
+30%
+10%
+20%
+10%
+
+SQL> select 10 mod 2 from dual;
+select 10 mod 2 from dual
+              *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select 10 % 2 from dual
+SQL> /
+select 10 % 2 from dual
+          *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select 10 % 3 from dual
+SQL> /
+select 10 % 3 from dual
+          *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> wd
+SP2-0042: unknown command "wd" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select mod(10,3) from dual
+SQL> /
+
+ MOD(10,3)
+----------
+         1
+
+SQL> select concat('hello   ','world') from dual;
+
+CONCAT('HELLO
+-------------
+hello   world
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(trim('hello   '),'world') from dual
+SQL> /
+
+CONCAT(TRI
+----------
+helloworld
+
+SQL> select ename,deptno from emp;
+
+ENAME          DEPTNO
+---------- ----------
+SMITH              20
+ALLEN              30
+WARD               30
+JONES              20
+MARTIN             30
+BLAKE              30
+CLARK              10
+SCOTT              20
+KING               10
+TURNER             30
+ADAMS              20
+
+ENAME          DEPTNO
+---------- ----------
+JAMES              30
+FORD               20
+MILLER             10
+deepa              20
+parvaathy
+SUPARNA
+CHARLESIII
+
+18 rows selected.
+
+SQL> select concat(ename,deptno) from emp;
+
+CONCAT(ENAME,DEPTNO)
+--------------------------------------------------
+SMITH20
+ALLEN30
+WARD30
+JONES20
+MARTIN30
+BLAKE30
+CLARK10
+SCOTT20
+KING10
+TURNER30
+ADAMS20
+
+CONCAT(ENAME,DEPTNO)
+--------------------------------------------------
+JAMES30
+FORD20
+MILLER10
+deepa20
+parvaathy
+SUPARNA
+CHARLESIII
+
+18 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(ename,'--',deptno) from emp
+SQL> /
+select concat(ename,'--',deptno) from emp
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(rpad(ename,'--'),deptno) from emp
+SQL> /
+select concat(rpad(ename,'--'),deptno) from emp
+                         *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> desc emp
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(rpad(ename,12,'--'),deptno) from emp
+SQL> /
+
+CONCAT(RPAD(ENAME,12,'--'),DEPTNO)
+--------------------------------------------------------------------------------
+SMITH-------20
+ALLEN-------30
+WARD--------30
+JONES-------20
+MARTIN------30
+BLAKE-------30
+CLARK-------10
+SCOTT-------20
+KING--------10
+TURNER------30
+ADAMS-------20
+
+CONCAT(RPAD(ENAME,12,'--'),DEPTNO)
+--------------------------------------------------------------------------------
+JAMES-------30
+FORD--------20
+MILLER------10
+deepa-------20
+parvaathy---
+SUPARNA-----
+CHARLESIII--
+
+18 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(rpad(ename,12,'--'),deptno) from emp
+SQL> desc emp
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(rpad(ename,12,'*'),deptno) from emp
+SQL> /
+
+CONCAT(RPAD(ENAME,12,'*'),DEPTNO)
+--------------------------------------------------------------------------------
+SMITH*******20
+ALLEN*******30
+WARD********30
+JONES*******20
+MARTIN******30
+BLAKE*******30
+CLARK*******10
+SCOTT*******20
+KING********10
+TURNER******30
+ADAMS*******20
+
+CONCAT(RPAD(ENAME,12,'*'),DEPTNO)
+--------------------------------------------------------------------------------
+JAMES*******30
+FORD********20
+MILLER******10
+deepa*******20
+parvaathy***
+SUPARNA*****
+CHARLESIII**
+
+18 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(lpad(ename,12,'*'),deptno) from emp
+SQL> /
+
+CONCAT(LPAD(ENAME,12,'*'),DEPTNO)
+--------------------------------------------------------------------------------
+*******SMITH20
+*******ALLEN30
+********WARD30
+*******JONES20
+******MARTIN30
+*******BLAKE30
+*******CLARK10
+*******SCOTT20
+********KING10
+******TURNER30
+*******ADAMS20
+
+CONCAT(LPAD(ENAME,12,'*'),DEPTNO)
+--------------------------------------------------------------------------------
+*******JAMES30
+********FORD20
+******MILLER10
+*******deepa20
+***parvaathy
+*****SUPARNA
+**CHARLESIII
+
+18 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select concat(deptno,lpad(ename,12,'*')) from emp
+SQL> /
+
+CONCAT(DEPTNO,LPAD(ENAME,12,'*'))
+--------------------------------------------------------------------------------
+20*******SMITH
+30*******ALLEN
+30********WARD
+20*******JONES
+30******MARTIN
+30*******BLAKE
+10*******CLARK
+20*******SCOTT
+10********KING
+30******TURNER
+20*******ADAMS
+
+CONCAT(DEPTNO,LPAD(ENAME,12,'*'))
+--------------------------------------------------------------------------------
+30*******JAMES
+20********FORD
+10******MILLER
+20*******deepa
+***parvaathy
+*****SUPARNA
+**CHARLESIII
+
+18 rows selected.
